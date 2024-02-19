@@ -9,6 +9,7 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+// const jsonParser = express.json();
 
 app.use("/api/contacts", contactsRouter);
 
