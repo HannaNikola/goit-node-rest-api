@@ -34,7 +34,7 @@ async function removeContact(contactId) {
 }
 
 
-async function addContact(name, email, phone) {
+async function addContact({name, email, phone}) {
   const allContacts = await listContacts();
   const newContact = { id: crypto.randomUUID(), name, email, phone };
   allContacts.push(newContact);
@@ -42,12 +42,27 @@ async function addContact(name, email, phone) {
   return newContact;
 }
 
- 
+async function updateContact({contactId, name, email, phone }) {
+  const allContacts = await listContacts();
+  const index = allContacts.findIndex((contact) => contact.id === contactId);
+  if (index === -1) {
+    return undefined;
+  }
+  
+  allContacts[index] = { ...allContacts[index], name, email, phone };
+  await fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
+
+  return allContacts[index];
+}
+
+   
+  
 const contactsService = {
   listContacts,
   getContactById,
   addContact,
   removeContact,
+  updateContact,
 };
 
 export default contactsService;
