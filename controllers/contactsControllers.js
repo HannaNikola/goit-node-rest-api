@@ -52,10 +52,7 @@ export const createContact = async (req, res, next) => {
 export const updateContact = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const data = await contactsService.updateContact({
-          contactId: id,
-          ...req.body,
-        });
+        const data = await contactsService.updateContact(id, req.body);
         if (!data) {
             throw HttpError(404);
         }
@@ -68,3 +65,5 @@ export const updateContact = async (req, res, next) => {
 
 
 
+// Помилка в параметрах updateContact. 
+// Вам не мають в боді надсилати ід контакту, це окремий параметр.
