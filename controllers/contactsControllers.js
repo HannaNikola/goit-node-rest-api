@@ -7,7 +7,7 @@ import HttpError from "../helpers/HttpError.js";
  export const getAllContacts = async (req, res) => {
     try {
         const data = await contactsService.listContacts();
-        res.send(data).status(200).json(data);
+        res.send(data).status(200);
     } catch (error) {
       res.status(500)
     }
@@ -22,7 +22,7 @@ export const getOneContact = async(req, res) => {
            
             
         }
-        res.send(data).status(200).json(data);
+        res.send(data).status(200);
     }catch (error) {
         next(error);
     };
@@ -47,7 +47,7 @@ export const deleteContactat = async(req, res) => {
 export const createContact = async (req, res, next)=>{
     try {
         const data = await contactsService.addContact(req.body);
-        res.send(data).status(201).json(data);
+        res.send(data).status(201);
      } catch (error) {
     next(error)
     }
@@ -62,7 +62,7 @@ try {
         if (!data) {
             throw HttpError(404);
         }
-         res.send(data).status(200).json(data);
+         res.send(data).status(200);
      }
     catch (error) {
       next(error)
