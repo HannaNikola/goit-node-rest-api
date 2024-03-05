@@ -2,8 +2,8 @@ import userSchema from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const authRegister = async(rec, res, next) => {
-    const { password, email } = rec.body;
+export const authRegister = async(req, res, next) => {
+    const { password, email } = req.body;
     const normalizedEmail = email.toLowerCase();
 
     try {
@@ -11,7 +11,7 @@ export const authRegister = async(rec, res, next) => {
         if (user !== null) {
             return res.status(409).send({ message: "User already registration" });
         }
-        const passwordHash = await bcrypt.hash(password, 10); ;
+        const passwordHash = await bcrypt.hash(password, 10); 
         const data = await userSchema.create({
           password: passwordHash,
           email: normalizedEmail,
@@ -26,9 +26,9 @@ export const authRegister = async(rec, res, next) => {
 };
 
 
-export const authLogin = async (rec, res, next) => {
-    const { password, email } = rec.body;
-    const normalizedEmail = email.toLowerCase();
+export const authLogin = async (req, res, next) => {
+    const { password, email } = req.body;
+    const normalizedEmail = email;
 
     try {
         const user = await userSchema.findOne({ email: normalizedEmail });
@@ -48,7 +48,7 @@ export const authLogin = async (rec, res, next) => {
             id: user._id,
           },
             process.env.JWT_SECRET,
-          {expiresIn:" 1h" }
+          // {expiresIn:"1h"}
         );
         res.send({ token });
         

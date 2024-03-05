@@ -11,7 +11,7 @@ export const getAllContacts = async (req, res) => {
 };
 
 export const getOneContact = async (req, res) => {
-  // console.log(req.owner);
+  // console.log(req.user);
   try {
     const { id } = req.params;
     const data = await contactsService.getContactById(id);

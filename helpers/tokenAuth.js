@@ -20,8 +20,10 @@ function tokenAuth(req, res, next) {
            return res.status(401).send({ message: "Invalid token" });
         }
         console.log(decode);
-        req.owner = {
+        req.user = {
           id: decode.id,
+          // name:decode.name
+        //   name: decode.name,
         };
 
         next();

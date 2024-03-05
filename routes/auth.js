@@ -8,7 +8,7 @@ const authRouter = express.Router();
 // authRouter.post("/users/register", jsonParser, authRegister);
 
 
-authRouter.post("/register",tokenAuth, authRegister);
+authRouter.post("/register", authRegister);
 
-authRouter.post("/login",tokenAuth, authLogin);
+authRouter.post("/login", authLogin);
 export default authRouter;
