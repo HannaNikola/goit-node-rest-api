@@ -14,15 +14,15 @@ function tokenAuth(req, res, next) {
     
     jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
         if (err) {
-            if (err.owner === "TokenExpiredError") {
+            if (err.name === "TokenExpiredError") {
               return res.status(401).send({ message: "Token expired" });
             }
            return res.status(401).send({ message: "Invalid token" });
         }
         console.log(decode);
-        // req.owner = {
-        //   id: decode.id,
-        // };
+        req.owner = {
+          id: decode.id,
+        };
 
         next();
     });
