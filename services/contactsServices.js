@@ -5,7 +5,7 @@ import Contact from "../models/contactModels.js";
 
 
 async function listContacts(owner, query = {}) {
-  const { page = 1, limit = 5 } = query;
+  const { page = 1, limit = 2 } = query;
   const skip = (page - 1) * limit;
   const data = await Contact.find({ owner }).skip(skip).limit(limit);
   return data;

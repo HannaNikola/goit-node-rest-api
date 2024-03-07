@@ -72,10 +72,14 @@ export const authLogout = async(req, res, next) => {
 
 
 export const authCurrent = async (req, res) => {
-  const { email } = req.user;
+  const { _id, email, token } = req.user;
   
 
-  res.json({email});
+  res.json({
+    _id,
+    email,
+    token
+  });
 }
 
 

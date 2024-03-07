@@ -29,7 +29,10 @@ function tokenAuth(req, res, next) {
            return res.status(401).send({ message: "Not authorized" }); 
         }
         req.user = {
-          id: decode.id
+          _id: user.id,
+          email: user.email,
+          token: user.token
+
         };
 
         next();
