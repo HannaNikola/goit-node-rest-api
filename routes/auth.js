@@ -1,14 +1,23 @@
 import express from "express";
-import { authRegister, authLogin } from "../controllers/userControllers.js";
+import {
+  authRegister,
+  authLogin,
+  authLogout,
+  authCurrent,
+} from "../controllers/userControllers.js";
 import tokenAuth from "../helpers/tokenAuth.js";
 
 
-const authRouter = express.Router();
-// const jsonParser = express.json();
-// authRouter.post("/users/register", jsonParser, authRegister);
 
+const authRouter = express.Router();
 
 authRouter.post("/register", authRegister);
 
 authRouter.post("/login", authLogin);
+
+authRouter.get("/logout", tokenAuth, authLogout);
+
+authRouter.get("/current", tokenAuth, authCurrent);
+
+
 export default authRouter;

@@ -1,6 +1,7 @@
 import userSchema from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
 export const authRegister = async(req, res, next) => {
     const { password, email } = req.body;
@@ -9,14 +10,14 @@ export const authRegister = async(req, res, next) => {
     try {
         const user = await userSchema.findOne({ email: normalizedEmail });
         if (user !== null) {
-            return res.status(409).send({ message: "User already registration" });
+            return res.status(409).send({ message: "Email in use" });
         }
         const passwordHash = await bcrypt.hash(password, 10); 
         const data = await userSchema.create({
           password: passwordHash,
           email: normalizedEmail,
         });
-    // console.log(data);
+    
         res.status(201).send({ message: "Registration successful" });
     }
     catch (error) {
@@ -28,19 +29,17 @@ export const authRegister = async(req, res, next) => {
 
 export const authLogin = async (req, res, next) => {
     const { password, email } = req.body;
-    const normalizedEmail = email;
+    const normalizedEmail = email.toLowerCase();
 
     try {
         const user = await userSchema.findOne({ email: normalizedEmail });
         if (user === null) {
-            return res.status(401).send({message: 'email or password is incorrect'})
+            return res.status(401).send({ message: "Not authorized" });
         }
-        const isMatch = bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch === false) {
-            console.log("Password")
-            return res
-              .status(401)
-              .send({ message: "email or password is incorrect" });
+            
+            return res.status(401).send({ message: "Not authorized" });
         }
 
         const token = jwt.sign(
@@ -49,13 +48,36 @@ export const authLogin = async (req, res, next) => {
           },
             process.env.JWT_SECRET,
           // {expiresIn:"1h"}
-        );
+      );
+      
+     await User.findByIdAndUpdate(user._id, { token });
         res.send({ token });
         
     }
-    
-    
     catch (error) {
         next(error);
      }
 }
+
+export const authLogout = async(req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.user.id, { token: null });
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+
+
+export const authCurrent = async (req, res) => {
+  const { email } = req.user;
+  
+
+  res.json({email});
+}
+
+
+
+
