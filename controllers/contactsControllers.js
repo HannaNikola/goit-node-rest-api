@@ -5,7 +5,7 @@ export const getAllContacts = async (req, res) => {
   // console.log(req.user)
   try {
     
-    const owner = req.user.id;
+    const owner = req.user._id;
     const data = await contactsService.listContacts(owner, req.query);
     console.log(data);
     res.send(data).status(200);
