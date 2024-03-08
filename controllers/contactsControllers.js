@@ -2,7 +2,7 @@ import contactsService from "../services/contactsServices.js";
 import HttpError from "../helpers/HttpError.js";
 
 export const getAllContacts = async (req, res) => {
-  // console.log(req.user)
+  console.log(req.user)
   try {
     
     const owner = req.user._id;
@@ -15,17 +15,17 @@ export const getAllContacts = async (req, res) => {
 };
 
 
+
 export const getOneContact = async (req, res, next) => {
-  
   try {
-    const { id: owner } = req.user;
+    const { _id: owner } = req.user;
     const { id } = req.params;
-    
-    const data = await contactsService.getContactById(id,owner);
+
+    const data = await contactsService.getContactById(id, owner);
     if (!data) {
       throw HttpError(404);
     }
-    
+
     res.send(data).status(200);
   } catch (error) {
     next(error);

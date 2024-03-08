@@ -12,13 +12,13 @@ async function listContacts(owner, query = {}) {
 }
 listContacts();
 
+
 async function getContactById(contactId, owner) {
-
-  const allContacts = await listContacts();
-  const contact = await Contact.findById({ _id: contactId, owner});
+  const contact = await Contact.findOne({ _id: contactId, owner });
   return contact;
-
 }
+
+
 
 async function removeContact(id, owner) {
  
