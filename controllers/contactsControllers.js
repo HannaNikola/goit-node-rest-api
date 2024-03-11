@@ -52,7 +52,7 @@ export const deleteContact = async (req, res, next) => {
     const { _id: owner } = req.user; 
     const data = await contactsService.removeContact(id, owner);
     if (!data) {
-      throw new HttpError(404, "Not Found"); 
+      throw  HttpError(404, "Not Found"); 
     }
     
     res.status(200).json({ message: "Success", contact: data });
