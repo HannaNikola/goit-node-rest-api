@@ -19,17 +19,6 @@ async function getContactById(contactId, owner) {
 }
 
 
-
-// async function removeContact(id, owner) {
- 
-//   const contact = await Contact.findOne({ _id: id, owner });
-//   if (!contact) {
-//     return null;
-//   }
-//   const data = await Contact.findByIdAndDelete(id, { new: true });
-//   return data;
-// }
-
 async function removeContact(id, owner) {
   
   const contact = await Contact.findOne({ _id: id, owner });
