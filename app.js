@@ -5,7 +5,7 @@ import "dotenv/config";
 import "./db/db.js";
 import contactsRouter from "./routes/contactsRouter.js";
 import authRouter from "./routes/auth.js";
-import avatarRouter from "./routes/users.js";
+
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
 app.use("/api/contacts", contactsRouter);
-app.use("/users", avatarRouter);
+
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
