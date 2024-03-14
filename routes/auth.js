@@ -7,7 +7,7 @@ import {
 } from "../controllers/userControllers.js";
 import tokenAuth from "../helpers/tokenAuth.js";
 
-import { uploadAvatar } from "../controllers/avatarControllers.js";
+import {uploadAvatar} from "../controllers/avatarControllers.js";
 import upload from "../helpers/upload.js";
 
 
@@ -22,7 +22,7 @@ authRouter.get("/logout", tokenAuth, authLogout);
 
 authRouter.get("/current", tokenAuth, authCurrent);
 
-authRouter.patch("/avatar", tokenAuth, upload.single("avatar"), uploadAvatar);
+authRouter.patch( "/avatars", tokenAuth, upload.single("avatar"), uploadAvatar);
 
 
 export default authRouter;
