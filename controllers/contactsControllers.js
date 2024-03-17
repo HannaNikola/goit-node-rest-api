@@ -32,19 +32,7 @@ export const getOneContact = async (req, res, next) => {
   }
 };
 
-// export const deleteContact = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const { id: owner } = req.user;
-//     const data = await contactsService.removeContact(id, owner);
-//     if (!data) {
-//       throw HttpError(404);
-//     }
-//     res.send(data).status(200).json({ message: "Success" });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+
 
 export const deleteContact = async (req, res, next) => {
   try {

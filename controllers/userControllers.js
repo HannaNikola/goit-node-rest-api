@@ -2,6 +2,7 @@ import userSchema from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import gravatar from "gravatar";
 
 export const authRegister = async(req, res, next) => {
     const { password, email } = req.body;
@@ -12,10 +13,12 @@ export const authRegister = async(req, res, next) => {
         if (user !== null) {
             return res.status(409).send({ message: "Email in use" });
         }
-        const passwordHash = await bcrypt.hash(password, 10); 
+      const passwordHash = await bcrypt.hash(password, 10); 
+      const avatar = gravatar.url(email);
         const data = await userSchema.create({
           password: passwordHash,
           email: normalizedEmail,
+          avatar,
         });
     
         res.status(201).send({ message: "Registration successful" });
