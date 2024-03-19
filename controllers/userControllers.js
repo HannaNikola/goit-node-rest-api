@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import gravatar from "gravatar";
 import nodemailer from "nodemailer";
-import next from "next";
+// import next from "next";
 
 const transport = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
